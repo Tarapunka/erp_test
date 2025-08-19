@@ -1,0 +1,31 @@
+[project]
+name = "erp_test"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Tarapunka",email = "dan.forth.ant@gmail.com"}
+]
+license = {text = "MINT"}
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi (>=0.116.1,<0.117.0)",
+    "sqlalchemy (>=2.0.42,<3.0.0)",
+    "aiosqlite (>=0.21.0,<0.22.0)",
+    "pydantic[email] (>=2.11.7,<3.0.0)",
+    "pydantic-settings (>=2.10.1,<3.0.0)",
+    "bcrypt (>=4.3.0,<5.0.0)",
+    "python-jose[cryptography] (>=3.5.0,<4.0.0)",
+    "passlib[bcrypt] (>=1.7.4,<2.0.0)",
+    "alembic (>=1.16.4,<2.0.0)",
+    "black (>=25.1.0,<26.0.0)",
+    "uvicorn (>=0.35.0,<0.36.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+package-mode = false
