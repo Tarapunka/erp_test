@@ -1,9 +1,17 @@
+from __future__ import annotations
+
 from datetime import datetime, timezone
 from typing import Optional
 from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, String, Text, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from src.core.database import Base
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from src.features.users.models import User
+    from src.features.projects.model import Project
 
 
 class Task(Base):

@@ -1,30 +1,34 @@
 from datetime import datetime
+from typing import List
 from pydantic import BaseModel, ConfigDict
 
+from src.shared.base_schema import BaseSchema
+from src.features.tasks.schemas import TaskRead
 
-class TaskBase(BaseModel):
+
+class ProjectBase(BaseSchema):
     title: str
     description: str | None = None
-    assignee_id: int | None = None
 
 
-class TaskCreate(TaskBase):
+class ProjectCreate(ProjectBase):
     creator_id: int  # TODO убрать, заменить на current_user
     pass
 
 
-class TaskUpdate(BaseModel):
+class ProjectUpdate(BaseSchema):
     title: str | None = None
     description: str | None = None
-    assignee_id: int | None = None
     completed: bool | None = None
+    pass
 
 
-class TaskRead(TaskBase):
+class ProjectRead(ProjectBase):
     id: int
     completed: bool
     created_at: datetime
-    updated_at: datetime
-    creator_id: int | None = None
+    creator_id: int
 
-    model_config = ConfigDict(from_attributes=True)
+
+class ProjectWithTasksRead(ProjectRead):
+    tasks: List[TaskRead] | None = None
