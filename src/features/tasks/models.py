@@ -18,21 +18,23 @@ class Task(Base):
         default=func.now(), onupdate=func.now(), nullable=False
     )
 
-    # Связь: задача назначена пользователю
-    assignee_id: Mapped[int] = mapped_column(
-        Integer, ForeignKey("users.id"), nullable=True
+    # задача назначена пользователю (assignee)
+    assignee_id: Mapped[Optional[int]] = mapped_column(
+        ForeignKey("users.id"), nullable=True
     )
     assignee: Mapped[Optional["User"]] = relationship(
-        "User", foreign_keys=[assignee_id], back_populates="assigned_tasks"
+        back_populates="assigned_tasks", foreign_keys=[assignee_id]
     )
 
-    # Можно добавить автора задачи
-    creator_id: Mapped[int] = mapped_column(
-        Integer, ForeignKey("users.id"), nullable=True
+    # автор задачи
+    creator_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
+    creator: Mapped["User"] = relationship(
+        back_populates="created_tasks", foreign_keys=[creator_id]
     )
-    creator: Mapped[Optional["User"]] = relationship(
-        "User", foreign_keys=[creator_id], back_populates="created_tasks"
-    )
+
+    # проект, к которому относится задача
+    project_id: Mapped[int] = mapped_column(ForeignKey("projects.id"), nullable=False)
+    project: Mapped["Project"] = relationship(back_populates="tasks")
 
     def __repr__(self):
         return f"<Task(id={self.id}, title='{self.title}', assignee_id={self.assignee_id})>"
