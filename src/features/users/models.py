@@ -1,8 +1,6 @@
 from typing import List
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import Integer, String, Boolean
-from features.projects.model import Project
-from src.features.tasks.models import Task
 from src.core.database import Base
 
 
@@ -22,17 +20,17 @@ class User(Base):
 
     # проекты, созданные пользователем
     created_projects: Mapped[List["Project"]] = relationship(
-        back_populates="creator", cascade="all, delete-orphan"
+        "Project", back_populates="creator", cascade="all, delete-orphan"
     )
 
     # задачи, назначенные пользователю
     assigned_tasks: Mapped[List["Task"]] = relationship(
-        back_populates="assignee", foreign_keys="Task.assignee_id"
+        "Task", foreign_keys="Task.assignee_id", back_populates="assignee"
     )
 
     # задачи, созданные пользователем
     created_tasks: Mapped[List["Task"]] = relationship(
-        back_populates="creator", foreign_keys="Task.creator_id"
+        "Task", foreign_keys="Task.creator_id", back_populates="creator"
     )
 
     def __repr__(self) -> str:

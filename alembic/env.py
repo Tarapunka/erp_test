@@ -25,6 +25,7 @@ from src.core.config import settings
 
 from src.features.users.models import User
 from src.features.tasks.models import Task
+from src.features.projects.model import Project
 
 
 target_metadata = Base.metadata
